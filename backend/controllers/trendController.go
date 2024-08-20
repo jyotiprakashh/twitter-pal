@@ -57,7 +57,7 @@ func GetTrends(c *fiber.Ctx, ipinfo string, Serpapi_key string) error {
     if err != nil {
         return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
     }
-
+fmt.Println("your location is: " +location.Country)
     trends, err := services.GetTrends(location.Country, Serpapi_key, c.Get("category"))
     if err != nil {
         return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})

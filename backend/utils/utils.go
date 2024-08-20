@@ -1,10 +1,11 @@
 package utils
 
 import (
-    "time"
+	"fmt"
+	"time"
 
-    "github.com/golang-jwt/jwt/v5"
-    "golang.org/x/crypto/bcrypt"
+	"github.com/golang-jwt/jwt/v5"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func HashPassword(password string) (string, error) {
@@ -28,4 +29,26 @@ func GenerateJWT(userID string, secret string) (string, error) {
         return "", err
     }
     return tokenString, nil
+}
+
+func ValidateJWT(tokenString string, secret string) (string, error) {
+    token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+        if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+            return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+        }
+        return []byte(secret), nil
+    })
+
+    if err != nil {
+        return "", fmt.Errorf("error parsing token: %v", err)
+    }
+
+    if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+        if userID, ok := claims["user_id"].(string); ok {
+            return userID, nil
+        }
+        return "", fmt.Errorf("user_id claim is not a string")
+    }
+
+    return "", fmt.Errorf("invalid token")
 }

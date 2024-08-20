@@ -36,8 +36,8 @@ func GetTweets(userID string, db *mongo.Database) ([]models.Tweet, error) {
 	defer cancel()
 
 	var tweets []models.Tweet
-	userIDPrimitive, _ := primitive.ObjectIDFromHex(userID)
-	cursor, err := collection.Find(ctx, bson.M{"user_id": userIDPrimitive})
+	// userIDPrimitive, _ := primitive.ObjectIDFromHex(userID)
+	cursor, err := collection.Find(ctx, bson.M{"user_id": userID})
 	if err != nil {
 		return nil, err
 	}

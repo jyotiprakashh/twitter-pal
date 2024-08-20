@@ -4,23 +4,29 @@ import (
 	// "context"
 	// "strings"
 	"fmt"
+	"os"
 	"strings"
 	"time"
 	"tweet-generate/models"
 	"tweet-generate/services"
 
+	"tweet-generate/utils"
+
 	"github.com/gofiber/fiber/v2"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	// "go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func CreateTweet(c *fiber.Ctx, db *mongo.Database, GEMINI_KEY string) error {
 	var tweet models.Tweet
-	// tweet.Keywords = strings.Split(c.Query("keywords"), ",")
-	// tweet.Tone = c.Query("tone")
-	// tweet.Topic="testis"
-	// tweet.Keywords = []string{"test"}
-	// tweet.Tone = "test"
+	token:= c.Get("Token")
+	fmt.Println(token)
+	secret:= os.Getenv("JWT_SECRET")
+	fmt.Println(secret)
+	userID, err := utils.ValidateJWT(token, secret)
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid token"})
+	}
     
 	if err := c.BodyParser(&tweet); err != nil {
         return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": err.Error()})
@@ -30,8 +36,8 @@ func CreateTweet(c *fiber.Ctx, db *mongo.Database, GEMINI_KEY string) error {
 		tweet.Keywords[i] = strings.ToLower(tweet.Keywords[i])
 		fmt.Println(tweet.Keywords[i])
 	}
-
-	tweet.UserID = primitive.NewObjectID()
+	// userid := c.Locals("user_id").(string)
+	tweet.UserID = userID
 	tweet.CreatedAt = time.Now().Unix()
 
 	content, err := services.GenerateTweet(tweet.Topic, tweet.Keywords, tweet.Tone, GEMINI_KEY, db)
@@ -48,11 +54,29 @@ func CreateTweet(c *fiber.Ctx, db *mongo.Database, GEMINI_KEY string) error {
 }
 
 func GetTweets(c *fiber.Ctx, db *mongo.Database) error {
-	userID := c.Locals("user_id").(string)
+	token:= c.Get("Token")
+	fmt.Println(token)
+	secret:= os.Getenv("JWT_SECRET")
+	fmt.Println(secret)
+	userID, err := utils.ValidateJWT(token, secret)
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Invalid token"})
+	}
+	fmt.Println(userID)
+	// c.Locals("user_id", userID)
+
+	// userID, ok := c.Locals("user_id").(string)
+	// if !ok || userID == "" {
+	// 	return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": "Failed to get user ID"})
+	// }
 
 	tweets, err := services.GetTweets(userID, db)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+	}
+	for i := range tweets {
+		tweets[i].Content = strings.TrimSpace(tweets[i].Content)
+		fmt.Println(tweets[i].Content)
 	}
 
 	return c.JSON(tweets)

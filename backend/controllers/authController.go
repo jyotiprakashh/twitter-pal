@@ -45,16 +45,7 @@ func Login(c *fiber.Ctx, db *mongo.Database, jwtSecret string) error {
         return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": err.Error()})
     }
 
-    return c.JSON(fiber.Map{"token": token})
+    return c.JSON(fiber.Map{"token": token, "user" : credentials})
 }
 
-// func Protected(c *fiber.Ctx, jwtSecret string) error {
-//     user := c.Locals("user").(*jwt.Token)
-//     claims := user.Claims.(jwt.MapClaims)
-//     userId := claims["user_id"].(string)
-
-//     // Additional validation logic here
-
-//     return c.Next()
-// }
 

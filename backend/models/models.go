@@ -11,7 +11,7 @@ type User struct {
 
 type Tweet struct {
     ID        primitive.ObjectID `bson:"_id,omitempty"` 
-    UserID    primitive.ObjectID `bson:"user_id"`
+    UserID    string             `bson:"user_id"`
     Topic     string             `bson:"topic"`
     Content   string             `bson:"content"`
     Keywords  []string           `bson:"keywords"`

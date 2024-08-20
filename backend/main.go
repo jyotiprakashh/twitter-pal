@@ -10,11 +10,17 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/mongo"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func main() {
     app := fiber.New()
+	app.Use(cors.New())
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: "http://localhost:5173",
+		AllowHeaders: "Origin, Content-Type, Accept",
+	}))
 
     cfg := config.LoadConfig()
 	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
