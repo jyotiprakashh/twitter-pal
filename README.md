@@ -9,8 +9,8 @@ Get ready to take your Twitter game to the next level with Tweet Heats 🚀 This
 ## What's Under the Hood 🤔
 ---------------------------
 
-* **Frontend**: Built with Vite ⚡️, React JS 🤖, and Zustand for state management 📈
-* **Backend**: Built with Golang 🐹, containerized with Docker 📦, and deployed on Vercel 🚀
+* **Frontend**: Built with Vite ⚡️, React JS 🤖, and Zustand for state management and deployed on Vercel 📈
+* **Backend**: Built with Golang 🐹, containerized with Docker 📦 and deployed on back4app 🚀
 * **API**: Powered by Gemini API 🔮 and Twitter API 🐦
 * **Database**: MongoDB 📊 for storing user data
 * **Authentication**: Secure user authentication with JWT 🔒
@@ -37,4 +37,5 @@ Get ready to take your Twitter game to the next level with Tweet Heats 🚀 This
 Want to contribute to Tweet Heats? 🤔 Fork the repository and submit a pull request 📈.
 
 
-Tweeeeet!
+**Now, go forth and TWEET LIKE A BOSS 🤩**
+
