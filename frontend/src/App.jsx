@@ -9,19 +9,26 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import TweetGeneratorPage from './pages/TweetGeneratorPage';
 import MyTweetsPage from './pages/MyTweetsPage';
+import Footer from './pages/Footer';
+import About from './pages/About';
 
 function App() {
   return (
     <Router>
-      <Navbar />
-      <Routes>
+      <Navbar className="" />
+        <div>
+      <Routes className="">
+
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/generate-tweet" element={<TweetGeneratorPage />} />
         <Route path="/my-tweets" element={<MyTweetsPage />} />
+        <Route path="/about" element= {<About />} />
       </Routes>
+      </div>
       <ToastContainer />
+      <Footer />
     </Router>
   );
 }

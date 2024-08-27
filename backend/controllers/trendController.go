@@ -32,7 +32,7 @@ type TrendsResponse struct {
 
 
 
-func GetTrends(c *fiber.Ctx, ipinfo string, Serpapi_key string) error {
+func GetTrends(c *fiber.Ctx, ipinfo string, Serpapi_key string, RapidAPIKey string) error {
     // ip := c.IP()
 
     ip := c.Get("X-Real-IP")
@@ -58,7 +58,7 @@ func GetTrends(c *fiber.Ctx, ipinfo string, Serpapi_key string) error {
         return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
     }
 fmt.Println("your location is: " +location.Country)
-    trends, err := services.GetTrends(location.Country, Serpapi_key, c.Get("category"))
+    trends, err := services.GetTrends(location.Country, RapidAPIKey, c.Get("category"))
     if err != nil {
         return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
     }

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"os"
+	// "os"
 	"time"
 
 	"net/http"
@@ -23,30 +23,24 @@ type Configuration struct {
 	APISecret    string
 	AccessToken  string
 	AccessSecret string
-	WOEID       int64 // Unused in API v2 but kept for reference
 }
 
 
 
 type Trend struct {
-  	TrendName   string `json:"trend_name"`
-	TweetCount    int64 `json:"tweet_count"`
+  	TrendName   string `json:"name"`
+	Description    string `json:"description"`
+	Context    	string `json:"context"`
 }
 
 type TrendsResponse struct {
-    Trends []Trend `json:"data"`
+    Trends []Trend `json:"trends"`
 }
 
-// type customTrend struct {
-// 	Name        string `json:"name"`
-// 	URL         string `json:"url"`
-// 	TweetVolume int64  `json:"tweet_volume"`
-// }
 
 
 
-
-func GetTrends( country string, Serpapi_key string, cat string) ([]Trend, error) {
+func GetTrends( country string, RapidAPIKey string, cat string) ([]Trend, error) {
   // println("category: ", cat)
   // if cat==""{
   //   cat="all"
@@ -120,17 +114,18 @@ func GetTrends( country string, Serpapi_key string, cat string) ([]Trend, error)
 
 //   var trends []customTrend
     fmt.Println("hello")
-	bearerToken := os.Getenv("TWITTER_BEARER_TOKEN")
+	// bearerToken := os.Getenv("TWITTER_BEARER_TOKEN")
+
 	// woeid:= 1;
-	url := "https://api.x.com/2/trends/by/woeid/1"
+	url := "https://twitter-api45.p.rapidapi.com/trends.php?country=India"
 
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, fmt.Errorf("could not create request: %w", err)
 	}
-	// req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", bearerToken))
-	req.Header.Add("Authorization: ", bearerToken)
 
+	req.Header.Set("x-rapidapi-host", "twitter-api45.p.rapidapi.com")
+	req.Header.Set("x-rapidapi-key", RapidAPIKey)
 
 	client := &http.Client{Timeout: 10 * time.Second}
 	resp, err := client.Do(req)
@@ -156,7 +151,6 @@ func GetTrends( country string, Serpapi_key string, cat string) ([]Trend, error)
 	if(len(trendsResponse.Trends)==0){
 		return nil, fmt.Errorf("could not parse JSON response: %w", err)
 	}
-	fmt.Println("trends: ")
 	fmt.Println(trendsResponse.Trends)
 
 

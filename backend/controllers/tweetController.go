@@ -13,7 +13,7 @@ import (
 	"tweet-generate/utils"
 
 	"github.com/gofiber/fiber/v2"
-	// "go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
@@ -39,17 +39,20 @@ func CreateTweet(c *fiber.Ctx, db *mongo.Database, GEMINI_KEY string) error {
 	// userid := c.Locals("user_id").(string)
 	tweet.UserID = userID
 	tweet.CreatedAt = time.Now().Unix()
+	tweet.ID = primitive.NewObjectID()
 
+	
 	content, err := services.GenerateTweet(tweet.Topic, tweet.Keywords, tweet.Tone, GEMINI_KEY, db)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
 	tweet.Content = content
-
+	
 	if err := services.CreateTweet(tweet, db); err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
 	}
-
+	
+	fmt.Println("tweet id: ", tweet.ID)
 	return c.Status(fiber.StatusCreated).JSON(tweet)
 }
 
@@ -99,6 +102,7 @@ func UpdateTweet(c *fiber.Ctx, db *mongo.Database) error {
 }
 
 func DeleteTweet(c *fiber.Ctx, db *mongo.Database) error {
+	fmt.Println("tweet id: ", c.Params("id"))
 	tweetID := c.Params("id")
 
 	if err := services.DeleteTweet(tweetID, db); err != nil {

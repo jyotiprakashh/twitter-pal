@@ -1,14 +1,15 @@
 package controllers
 
 import (
-    // "context"
-    // "time"
-    "tweet-generate/models"
-    "tweet-generate/services"
-    "tweet-generate/utils"
+	// "context"
+	// "time"
+	"fmt"
+	"tweet-generate/models"
+	"tweet-generate/services"
+	"tweet-generate/utils"
 
-    "github.com/gofiber/fiber/v2"
-    "go.mongodb.org/mongo-driver/mongo"
+	"github.com/gofiber/fiber/v2"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func SignUp(c *fiber.Ctx, db *mongo.Database) error {
@@ -25,6 +26,7 @@ func SignUp(c *fiber.Ctx, db *mongo.Database) error {
     user.Password = hashedPassword
 
     if err := services.SignUp(user, db); err != nil {
+        fmt.Println(err)
         return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
     }
 
@@ -45,7 +47,13 @@ func Login(c *fiber.Ctx, db *mongo.Database, jwtSecret string) error {
         return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{"error": err.Error()})
     }
 
-    return c.JSON(fiber.Map{"token": token, "user" : credentials})
+    userName := services.GetUserName(credentials.Email, db)
+    if err != nil {
+        return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": err.Error()})
+    }
+
+    return c.JSON(fiber.Map{"token": token, "user" : userName})
 }
+
 
 

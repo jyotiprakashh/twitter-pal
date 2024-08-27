@@ -14,6 +14,9 @@ export default {
 
       colors: {
         "X-black": "#14171A",
+        "X-gray": "#191d21",
+        "X-lightBlack": "#192734",
+        "X-darkBlack": "#15202b",
         "X-Darkgray" : "#657786",
         "X-Lightgray" : "##AAB8C2",
         "X-Extralightgray": "#E1E8ED",

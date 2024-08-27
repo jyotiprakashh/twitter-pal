@@ -27,5 +27,5 @@ func SetupRoutes( app *fiber.App, cfg *config.Config, db *mongo.Database ) {
     tweet.Delete("/:id", func(c *fiber.Ctx) error { return controllers.DeleteTweet(c, db) })
 
 	trend := api.Group("/trends")
-    trend.Get("/", func(c *fiber.Ctx) error { return controllers.GetTrends(c, cfg.IPINFO_TOKEN, cfg.Serpapi_key) })
+    trend.Get("/", func(c *fiber.Ctx) error { return controllers.GetTrends(c, cfg.IPINFO_TOKEN, cfg.Serpapi_key, cfg.RapidAPIKey) })
 }
