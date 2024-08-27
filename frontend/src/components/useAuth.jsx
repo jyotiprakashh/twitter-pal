@@ -13,7 +13,7 @@ const useAuth = () => {
 
   const fetchUser = async (token) => {
     try {
-      const res = await fetch('http://localhost:3000/api/user', {
+      const res = await fetch('tweetheats-jd9i0y39.b4a.run/api/user', {
         method: 'GET',
         headers: {
           'Token': `${token}`,

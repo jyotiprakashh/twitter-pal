@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaTwitter, FaFacebookF, FaInstagram, FaLinkedinIn } from 'react-icons/fa';
+import { FaTwitter, FaFacebookF, FaInstagram, FaLinkedinIn, FaGithub } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -20,16 +20,16 @@ const Footer = () => {
           <div className="mb-6 md:mb-0">
             <h3 className="text-xl font-semibold mb-4">Follow Us</h3>
             <div className="flex space-x-4">
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="hover:text-X-blue">
+              <a href="https://x.com/jyotiprakshh" target="_blank" rel="noopener noreferrer" className="hover:text-X-blue">
                 <FaTwitter size={24} />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-600">
-                <FaFacebookF size={24} />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
+              <a href="https://www.instagram.com/jyotiprakshh/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
                 <FaInstagram size={24} />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="hover:text-blue-800">
+              <a href="https://github.com/jyotiprakashh/" target="_blank" rel="noopener noreferrer" className="hover:text-pink-500">
+                <FaGithub size={24} />
+              </a>
+              <a href="https://www.linkedin.com/in/jyotiprakshh/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-800">
                 <FaLinkedinIn size={24} />
               </a>
             </div>

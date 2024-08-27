@@ -3,7 +3,7 @@ package config
 import (
 	"os"
 
-	"github.com/joho/godotenv"
+	// "github.com/joho/godotenv"
 )
 
 type Config struct{
@@ -23,10 +23,10 @@ type Config struct{
 }
 
 func LoadConfig() *Config{
-	err:= godotenv.Load()
-	if err != nil {
-		panic(err)
-	}
+	// err:= godotenv.Load()
+	// if err != nil {
+	// 	panic(err)
+	// }
 	return &Config{
 		MONGO_URI: os.Getenv("MONGO_URI"),
 		JWTSecret: os.Getenv("JWT_SECRET"),

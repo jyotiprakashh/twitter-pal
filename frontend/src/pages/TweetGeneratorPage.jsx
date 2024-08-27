@@ -40,7 +40,7 @@ const TweetGeneratorPage = () => {
     const token = localStorage.getItem('token');
     if (!token) return;
     try {
-      const res = await fetch('http://localhost:3000/api/tweets/', {
+      const res = await fetch('tweetheats-jd9i0y39.b4a.run/api/tweets/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Token': token },
         body: JSON.stringify({ topic, keywords, tone }),

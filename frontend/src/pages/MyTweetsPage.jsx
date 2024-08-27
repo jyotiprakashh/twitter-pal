@@ -15,7 +15,7 @@ const MyTweetsPage = () => {
       if (!token) return;
 
       try {
-        const res = await fetch("http://localhost:3000/api/tweets", {
+        const res = await fetch("tweetheats-jd9i0y39.b4a.run/api/tweets", {
           method: "GET",
           headers: {
             Token: `${token}`,
