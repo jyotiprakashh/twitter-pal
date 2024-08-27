@@ -52,7 +52,7 @@ const MyTweetsPage = () => {
     if (!token) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/api/tweets/${id}`, {
+      const res = await fetch(`https://tweetheats-jd9i0y39.b4a.run/api/tweets/${id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
