@@ -1,22 +1,16 @@
-FROM golang:1.19-alpine AS build
+FROM golang:1.22-alpine AS build
 
 WORKDIR /app
 
 COPY go.mod go.sum ./
 
-RUN go mod tidy
+RUN go mod download
 
-COPY . .
 
-RUN go build -o main .
+COPY *.go ./
+COPY .env .env
 
-FROM alpine:latest
-
-WORKDIR /root/
-
-COPY --from=build /app/main .
-
-COPY --from=build /app/config ./config
+RUN CGO_ENABLED=0 GOOS=linux go build -o /main
 
 EXPOSE 3000
 
