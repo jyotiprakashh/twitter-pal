@@ -18,7 +18,7 @@ func main() {
     app := fiber.New()
 	app.Use(cors.New())
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:  "https://tweetheats.vercel.app",
+		AllowOrigins: "https://tweetheats.vercel.app",
 		AllowHeaders: "Origin, Content-Type, Accept",
 	}))
 

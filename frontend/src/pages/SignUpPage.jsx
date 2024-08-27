@@ -15,7 +15,7 @@ const SignUpPage = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('tweetheats-jd9i0y39.b4a.run/api/auth/signup', {
+      const response = await fetch('https://tweetheats-jd9i0y39.b4a.run/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ const LandingPage = () => {
   useEffect(() => {
     // Uncomment and use your actual API endpoint
     if (trendingTopics.length === 0){
-      fetch('tweetheats-jd9i0y39.b4a.run0/api/trends/')
+      fetch('https://tweetheats-jd9i0y39.b4a.run0/api/trends/')
       .then(res => res.json())
       .then(data => setTrendingTopics(data))
       .catch(err => console.error(err));

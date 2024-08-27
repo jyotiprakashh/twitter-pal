@@ -13,7 +13,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('tweetheats-jd9i0y39.b4a.run/api/auth/login', {
+      const response = await fetch('https://tweetheats-jd9i0y39.b4a.run/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
