@@ -4,7 +4,7 @@
 ## The Ultimate AI-Powered Tweet Generator 🔥
 ---------------------------------------------
 
-Get ready to take your Twitter game to the next level with Tweet Heats 🚀 This revolutionary web app uses AI to generate tweets based on trending topics around your location 📍. With a modern UI and seamless user experience, you'll be tweeting like a pro in no time 🤩.
+A fullstack web app uses AI to generate tweets based on trending topics around your location 📍. With a modern UI and seamless user experience, you'll be tweeting like a pro in no time 🤩.
 
 ## What's Under the Hood 🤔
 ---------------------------
